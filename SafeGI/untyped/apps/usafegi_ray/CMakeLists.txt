@@ -1,0 +1,9 @@
+# AUX_SOURCE_DIRECTORY(. SOURCES)
+
+SET(SOURCES
+main.cpp
+)
+INCLUDE_DIRECTORIES(../../libs/)
+ADD_EXECUTABLE(usafegi_ray ${SOURCES})
+
+TARGET_LINK_LIBRARIES(usafegi_ray gi_aux)

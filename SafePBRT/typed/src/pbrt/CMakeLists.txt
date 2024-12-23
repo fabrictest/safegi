@@ -1,0 +1,152 @@
+# setting up macros
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/core)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/safe_types)
+
+SET(SOURCES
+	safe_types/dimensions.h
+	safe_types/m_float.h
+	safe_types/m_units.h
+	safe_types/m_spaces.h
+	safe_types/uvector.h
+    accelerators/bvh.cpp
+	accelerators/bvh.h
+	cameras/orthographic.cpp
+	cameras/orthographic.h
+	cameras/perspective.cpp
+	cameras/perspective.h
+	core/api.cpp
+	core/api.h
+	core/camera.cpp
+	core/camera.h
+	core/diffgeom.cpp
+	core/diffgeom.h
+	core/error.cpp
+	core/error.h
+	core/film.cpp
+	core/film.h
+	core/filter.cpp
+	core/filter.h
+	core/floatfile.cpp
+	core/floatfile.h
+	core/geometry.h
+	core/imageio.hpp
+	core/imageio.h
+	core/integrator.cpp
+	core/integrator.h
+	core/intersection.cpp
+	core/intersection.h
+	core/kdtree.h
+	core/light.cpp
+	core/light.h
+	core/material.cpp
+	core/material.h
+	core/memory.cpp
+	core/memory.h
+	core/mipmap.h
+	core/montecarlo.cpp
+	core/montecarlo.h
+	core/parallel.cpp
+	core/parallel.h
+	core/paramset.cpp
+	core/paramset.h
+	core/parser.cpp
+	core/parser.h
+	core/pbrt.h
+	core/primitive.cpp
+	core/primitive.h
+	core/progressreporter.cpp
+	core/progressreporter.h
+	core/quaternion.h
+	core/reflection.cpp
+	core/reflection.h
+	core/renderer.cpp
+	core/renderer.h
+	core/rng.cpp
+	core/rng.h
+	core/sampler.cpp
+	core/sampler.h
+	core/scene.cpp
+	core/scene.h
+	core/shape.cpp
+	core/shape.h
+	core/spectrum.cpp
+	core/spectrum.h
+	core/texture.cpp
+	core/texture.h
+	core/timer.cpp
+	core/timer.h
+	core/transform.cpp
+	core/transform.h
+	core/volume.cpp
+	core/volume.h
+    core/pbrtlex.ll
+    core/pbrtparse.yy
+	core/pbrtlex.cpp
+	core/pbrtparse.cpp
+	core/pbrtparse.hpp
+	film/image.cpp
+	film/image.h
+	filters/box.cpp
+	filters/box.h
+	integrators/directlighting.cpp
+	integrators/directlighting.h
+	integrators/emission.cpp
+	integrators/emission.h
+	integrators/path.cpp
+	integrators/path.h
+	integrators/photonmap.cpp
+	integrators/photonmap.h
+	lights/diffuse.cpp
+	lights/diffuse.h
+	lights/infinite.cpp
+	lights/infinite.h
+	lights/point.cpp
+	lights/point.h
+	main/pbrt.cpp
+	materials/glass.cpp
+	materials/glass.h
+	materials/matte.cpp
+	materials/matte.h
+	materials/metal.cpp
+	materials/metal.h
+	materials/mirror.cpp
+	materials/mirror.h
+	materials/plastic.cpp
+	materials/plastic.h
+	materials/uber.cpp
+	materials/uber.h
+	renderers/samplerrenderer.cpp
+	renderers/samplerrenderer.h
+	samplers/lowdiscrepancy.cpp
+	samplers/lowdiscrepancy.h
+	samplers/random.cpp
+	samplers/random.h
+	shapes/disk.cpp
+	shapes/disk.h
+	shapes/sphere.cpp
+	shapes/sphere.h
+	shapes/trianglemesh.cpp
+	shapes/trianglemesh.h
+	textures/constant.cpp
+	textures/constant.h
+	textures/imagemap.cpp
+	textures/imagemap.h
+	textures/scale.cpp
+	textures/scale.h
+	volumes/homogeneous.cpp
+	volumes/homogeneous.h
+)
+if(NOT WIN32)
+ADD_DEFINITIONS(-DPBRT_HAS_PTHREADS)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -m32 -pthread -std=c++0x")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -m32 -pthread")
+endif()
+ADD_DEFINITIONS(-DPBRT_STATS_NONE)
+#ADD_DEFINITIONS(-DPBRT_HAS_OPENEXR)
+ADD_DEFINITIONS(-DPBRT_POINTER_SIZE=4)
+
+ADD_EXECUTABLE(pbrt ${SOURCES})
+
+TARGET_LINK_LIBRARIES(pbrt)
